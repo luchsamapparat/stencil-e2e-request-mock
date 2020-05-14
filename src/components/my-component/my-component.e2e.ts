@@ -11,11 +11,12 @@ describe('my-component', () => {
     await page.setRequestInterception(true);
 
     page.on('request', (request) => {
-
+      console.warn(`Requesting ${request.url()}`)
       if (request.url() === mockUrl) {
         request.respond({
           body: JSON.stringify(mockResponse)
         })
+        return;
       }
 
       request.continue();
